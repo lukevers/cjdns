@@ -609,8 +609,8 @@ module.exports.configure = function (params, configure) {
     nThen(function(waitFor) {
         // make the build directory
         
-        Fs.open(params.buildDir, 'r', waitFor(function(err) {
-            if (!err) return;
+        Fs.open(params.buildDir, 'r', waitFor(function(notexists) {
+            if (!notexists) return;
             Fs.mkdir(params.buildDir, waitFor(function (err) {
                 if (err) { throw err; }
             }));
@@ -618,8 +618,8 @@ module.exports.configure = function (params, configure) {
 
     }).nThen(function(waitFor) {
 
-        Fs.open(params.buildDir, 'r', waitFor(function(err) {
-            if (err) return;
+        Fs.open(params.buildDir, 'r', waitFor(function(notexists) {
+            if (notexists) return;
             Fs.readFile(params.buildDir + '/state.json', waitFor(function (err, ret) {
                 if (err) { throw err; }
                 var storedState = JSON.parse(ret);
@@ -632,8 +632,8 @@ module.exports.configure = function (params, configure) {
         }));
 
         // read out the state if it exists
-        Fs.open(params.buildDir + '/state.json', 'r', waitFor(function (err) {
-            if (err) { return; }
+        Fs.open(params.buildDir + '/state.json', 'r', waitFor(function (notexists) {
+            if (notexists) { return; }
             Fs.readFile(params.buildDir + '/state.json', waitFor(function (err, ret) {
                 if (err) { throw err; }
                 var storedState = JSON.parse(ret);
