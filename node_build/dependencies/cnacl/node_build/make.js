@@ -7,7 +7,7 @@ var TestRunner = require('./TestRunner');
 var RandomBytes = require('./RandomBytes');
 var Common = require('./Common');
 
-var WORKERS = Os.cpus().length;
+var WORKERS = 1;
 var GCC = process.env['CC'] || 'gcc';
 var AR = process.env['AR'] || 'ar';
 var RANLIB = process.env['RANLIB'] || 'ranlib';
@@ -64,10 +64,11 @@ var ranlib = function(args, onComplete) {
 var getPlan = function(abiName) {
   if (process.platform === 'darwin') { abiName = 'apple_' + abiName; }
   var planPath = 'node_build/plans/' + abiName + '_plan.json';
+  /* Since this does nothing, I'm commenting this out for now.
   if (!Fs.existsSync(planPath)) {
     // TODO
     throw new Error("build with no premade plan, TODO: generate one");
-  }
+  }*/
   console.log('Using premade plan at [' + planPath + ']');
   var text = Fs.readFileSync(planPath);
   return JSON.parse(text);
