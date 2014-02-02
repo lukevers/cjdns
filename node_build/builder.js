@@ -312,6 +312,8 @@ var compileFile = function (fileName, builder, tempDir, callback)
         })();
 
     }).nThen(function (waitFor) {
+        
+        console.log(preprocessed);
 
         Fs.exists(preprocessed, waitFor(function (exists) {
             if (!exists) { return; }
