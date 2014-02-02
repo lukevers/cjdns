@@ -14,7 +14,7 @@
 [ -n "$PLATFORM" ] || PLATFORM=$(uname | tr '[:upper:]' '[:lower:]')
 [ -n "$MARCH" ] || MARCH=$(uname -m | sed "s/i./x/g")
 BUILDDIR="build_${PLATFORM}"
-NODE_MIN_VER="v0.8.15"
+NODE_MIN_VER="v0.6.14"
 
 nodeUpToDate()
 # accepts 1 parameter: path to Node.js binary
