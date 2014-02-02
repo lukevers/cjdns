@@ -611,7 +611,7 @@ module.exports.configure = function (params, configure) {
         
         console.log(params.buildDir);
         
-        fs.open(params.buildDir, 'r', waitFor(function(err) {
+        Fs.open(params.buildDir, 'r', waitFor(function(err) {
             if (!err) return;
             Fs.mkdir(params.buildDir, waitFor(function (err) {
                 if (err) { throw err; }
