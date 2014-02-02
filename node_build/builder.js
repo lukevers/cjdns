@@ -314,13 +314,14 @@ var compileFile = function (fileName, builder, tempDir, callback)
     }).nThen(function (waitFor) {
         
         console.log(preprocessed);
-
+/*
         Fs.exists(preprocessed, waitFor(function (exists) {
             if (!exists) { return; }
             Fs.unlink(preprocessed, waitFor(function (err) {
                 if (err) { throw err; }
             }));
         }));
+        */
 
     }).nThen(function (waitFor) {
 
