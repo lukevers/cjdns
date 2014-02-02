@@ -13,8 +13,10 @@ var TESTS = BUILD_DIR + '/tests';
 
 
 var mkdir = function(dir) {
-  if (Fs.existsSync(dir)) { return; }
-  Fs.mkdirSync(dir);
+  Fs.open(dir, 'r', function(err) {
+    if (!err) return;
+    Fs.mkdirSync(dir);
+  });
 };
 
 var init = function() {
