@@ -130,11 +130,12 @@ Builder.configure({
 
     // Build dependencies
     nThen(function (waitFor) {
-        Fs.exists(BUILDDIR+'/dependencies', waitFor(function (exists) {
-            if (exists) { return; }
+        Fs.open(BUILDDIR+'/dependencies', 'r', waitFor(function(notexists) {
+            if (!notexists) return;
             console.log("Copy dependencies");
             Cp('./node_build/dependencies', BUILDDIR+'/dependencies', waitFor());
         }));
+
     }).nThen(function (waitFor) {
         builder.config.libs.push(
             BUILDDIR+'/dependencies/cnacl/jsbuild/libnacl.a'
@@ -142,8 +143,8 @@ Builder.configure({
         builder.config.includeDirs.push(
             BUILDDIR+'/dependencies/cnacl/jsbuild/include/'
         );
-        Fs.exists(BUILDDIR+'/dependencies/cnacl/jsbuild/libnacl.a', waitFor(function (exists) {
-            if (exists) { return; }
+        Fs.open(BUILDDIR+'/dependencies/cnacl/jsbuild/libnacl.a', 'r', waitFor(function (notexists) {
+            if (!notexists) { return; }
             console.log("Build NaCl");
             var cwd = process.cwd();
             process.chdir(BUILDDIR+'/dependencies/cnacl/');
@@ -187,8 +188,8 @@ Builder.configure({
         builder.config.includeDirs.push(
             BUILDDIR+'/dependencies/libuv/include/'
         );
-        Fs.exists(BUILDDIR+'/dependencies/libuv/libuv.a', waitFor(function (exists) {
-            if (exists) { return; }
+        Fs.open(BUILDDIR+'/dependencies/libuv/libuv.a', 'r', waitFor(function (notexists) {
+            if (!notexists) { return; }
             console.log("Build Libuv");
             var cwd = process.cwd();
             process.chdir(BUILDDIR+'/dependencies/libuv/');
@@ -258,8 +259,8 @@ Builder.configure({
 
 }).pack(function (builder, waitFor) {
 
-    Fs.exists(BUILDDIR+'/cjdroute', waitFor(function (exists) {
-        if (!exists) { return; }
+    Fs.open(BUILDDIR+'/cjdroute', 'r', waitFor(function (notexists) {
+        if (notexists) { return; }
         Fs.rename(BUILDDIR+'/cjdroute', './cjdroute', waitFor(function (err) {
             if (err) { throw err; }
         }));
