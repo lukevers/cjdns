@@ -312,16 +312,12 @@ var compileFile = function (fileName, builder, tempDir, callback)
         })();
 
     }).nThen(function (waitFor) {
-        
-        console.log(preprocessed);
-/*
         Fs.exists(preprocessed, waitFor(function (exists) {
             if (!exists) { return; }
             Fs.unlink(preprocessed, waitFor(function (err) {
                 if (err) { throw err; }
             }));
         }));
-        */
 
     }).nThen(function (waitFor) {
 
@@ -612,8 +608,11 @@ module.exports.configure = function (params, configure) {
 
     nThen(function(waitFor) {
         // make the build directory
-        Fs.exists(params.buildDir, waitFor(function (exists) {
-            if (exists) { return; }
+        
+        console.log(params.buildDir);
+        
+        fs.open(params.buildDir, 'r', waitFor(function(err) {
+            if (!err) return;
             Fs.mkdir(params.buildDir, waitFor(function (err) {
                 if (err) { throw err; }
             }));
