@@ -16,8 +16,6 @@
 BUILDDIR="build_${PLATFORM}"
 NODE_MIN_VER="v0.6.14"
 
-echo ${PLATFORM}
-
 hasOkNode()
 {
     for NODE in "$(pwd)/${BUILDDIR}/nodejs/node/bin/node" "nodejs" "node"; do
