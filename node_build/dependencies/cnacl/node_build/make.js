@@ -67,11 +67,10 @@ var ranlib = function(args, onComplete) {
 var getPlan = function(abiName) {
   if (process.platform === 'darwin') { abiName = 'apple_' + abiName; }
   var planPath = 'node_build/plans/' + abiName + '_plan.json';
-  /* Since this does nothing, I'm commenting this out for now.
   if (!Fs.existsSync(planPath)) {
     // TODO
     throw new Error("build with no premade plan, TODO: generate one");
-  }*/
+  }
   console.log('Using premade plan at [' + planPath + ']');
   var text = Fs.readFileSync(planPath);
   return JSON.parse(text);
